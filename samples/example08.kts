@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #8. Sparkling sprites 😎
 // Random sprite coordinates and smooth inc/dec of sprite size.
@@ -27,18 +33,20 @@ val counter1 = binds["counter1"] as Int
 val imageApple = binds["imageApple"] as Image
 val imageFlower = binds["imageFlower"] as Image
 
-val wdt = 400
-val hgt = 400
-val initSpeed = 4
+val area = 400
 
-// Helper extension function to draw centered image
+// Helper extension functions
 fun Graphics2D.drawImage(image: Image, point: Point, size: Int) =
     drawImage(image, point.x - size / 2, point.y - size / 2, size, size, null)
+
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
 
 // Simple item implementation
 class Item(val image: Image) {
     val point = Point()
-    val maxSize = (25..100).random()
+    val maxSize = (25..175).random()
     var size = -1
     var speed = 0
 
@@ -46,14 +54,13 @@ class Item(val image: Image) {
         size += speed
 
         when {
-            size > maxSize ->
-                speed = -speed
+            size > maxSize -> speed *= -1
 
             size < 0 -> {
-                point.x = (-wdt..wdt).random()
-                point.y = (-hgt..hgt).random()
+                point.x = (-area..area).random()
+                point.y = (-area..area).random()
+                speed = (3..6).random()
                 size = 0
-                speed = initSpeed
             }
         }
     }
@@ -71,8 +78,13 @@ items.forEach {
     it.update()
 }
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Mouse position $mousePos"""
+"""$advert
+Mouse position $mousePos""".trimIndent()
 
 // Have fun and amazing results ! 😀👌

@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Ready-to-use simple script template to get started !
 
@@ -47,9 +53,13 @@ val imageBall = binds["imageBall"] as Image
 val imageSmile = binds["imageSmile"] as Image
 val imageWall = binds["imageWall"] as Image
 
-// Helper extension function to draw centered image
+// Helper functions
 fun Graphics2D.drawImage(image: Image, x: Int, y: Int, size: Int) =
     drawImage(image, x - size / 2, y - size / 2, size, size, null)
+
+fun String.scrollLeft(counter: Int) = (counter % length).let {
+    drop(it) + ' ' + take(it)
+}
 
 // Set color and stroke width
 graph.color = Color(counter1 * 1000)
@@ -68,7 +78,7 @@ graph.drawImage(imageStar, mousePos.x, -mousePos.y, 64)
 graph.drawImage(imageDiamond, -mousePos.x, mousePos.y, 64)
 
 // Set random color and stroke width
-graph.stroke = BasicStroke(10f)
+graph.stroke = BasicStroke(4f)
 graph.color = Color(counter1 * -1000)
 
 // Draw confetti
@@ -101,15 +111,19 @@ val foo = binds.getOrPut("foo") {
 
 foo.process(graph)
 
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+
 // Sample values to check in watches window
 binds["millisTime"] = System.currentTimeMillis()
 binds["nanoTime"] = System.nanoTime()
+binds["advert"] = advert
 
 // Title message
-"""Red slider is for stroke width.
+"""$advert
+Red slider is for stroke width.
 Green slider is for confetti count.
 Move mouse to change visual pattern.
-Use arrow keys to move sprite.
+Arrow keys to move sprite.
 Mouse at $mousePos"""
 
 // Have fun and amazing results ! 😀👌

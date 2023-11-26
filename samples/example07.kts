@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #7. Geometry shapes demo 👍
 // Use sliders to parametrize script.
@@ -18,6 +24,7 @@ val binds = bindings as javax.script.Bindings
 // Get slider values from the bindings map
 val sliderRed = binds["sliderRed"] as Int
 val sliderGreen = binds["sliderGreen"] as Int
+val sliderBlue = binds["sliderBlue"] as Int
 
 // Get autoincrement counters for animation purposes
 val counter1 = binds["counter1"] as Int
@@ -31,7 +38,12 @@ val graph = binds["graphics2d"] as Graphics2D
 // Get Point instance of the mouse position from the bindings map
 val mousePos = binds["mousePos"] as Point
 
-graph.stroke = BasicStroke(sliderGreen.absoluteValue / 10f)
+// Helper extension function
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
+
+graph.stroke = BasicStroke(1 + sliderGreen.absoluteValue / 150f)
 
 drawShape(mousePos.x, mousePos.y, JBColor.YELLOW)
 drawShape(0, 0, JBColor.RED)
@@ -54,21 +66,33 @@ fun drawShape(centerX: Int, centerY: Int, color: Color) {
     var flag = true
     var prevX = centerX
     var prevY = centerY
-    for (i in 0..360 step 360 / sliderRed.absoluteValue) {
-        val size = i * sin(counter01 / 2) + if (flag) 200 else 100
-        val x = centerX + (size * sin(counter001 + i)).toInt()
-        val y = centerY + (size * cos(counter001 + i)).toInt()
+
+    var i = 0.0
+    val step = 360.0 / sliderRed.absoluteValue
+    while (i < 360.0) {
+        val r = 1 + sin(counter01 / 2) / 2
+        val size = if (flag) sliderBlue else sliderBlue + 100
+
+        val x = centerX + (r * size * sin(counter001 + i)).toInt()
+        val y = centerY + (r * size * cos(counter001 + i)).toInt()
 
         graph.drawLine(centerX, centerY, x, y)
         graph.drawLine(prevX, prevY, x, y)
         prevX = x
         prevY = y
         flag = !flag
+
+        i += step
     }
 }
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Title message
-"""Mouse and red slider to change visual pattern.
+"""$advert
+Sliders to change visual pattern.
 Mouse position $mousePos"""
 
 // Have fun and amazing results ! 😀👌

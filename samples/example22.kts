@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #22. Turtle graphics prototype 😍
 // Red slider is for stroke width
@@ -23,10 +29,15 @@ val counter1 = binds["counter1"] as Int
 // Get slider values from the bindings map
 val sliderRed = binds["sliderRed"] as Int
 val sliderGreen = binds["sliderGreen"] as Int
+val sliderBlue = binds["sliderBlue"] as Int
 
 // Get Graphics2D instance from the bindings map
 // All subsequent drawings will be done via Graphics2D instance
 val graph = binds["graphics2d"] as Graphics2D
+
+fun String.scrollLeft(counter: Int) = (counter % length).let {
+    drop(it) + ' ' + take(it)
+}
 
 // Simple turtle implementation
 class Turtle {
@@ -40,16 +51,8 @@ class Turtle {
         angle = 0.0
     }
 
-    infix fun setColor(color: Color) {
-        graph.color = color
-    }
-
     infix fun setColor(color: Int) {
         graph.color = Color(color)
-    }
-
-    infix fun setStroke(width: Float) {
-        graph.stroke = BasicStroke(width)
     }
 
     infix fun setStroke(width: Int) {
@@ -64,27 +67,11 @@ class Turtle {
         angle = newAngle.toDouble()
     }
 
-    infix fun rotate(degrees: Int) {
-        angle += degrees
-    }
-
     infix fun left(degrees: Int) {
         angle += degrees
     }
 
     infix fun right(degrees: Int) {
-        angle -= degrees
-    }
-
-    infix fun rotate(degrees: Double) {
-        angle += degrees
-    }
-
-    infix fun left(degrees: Double) {
-        angle += degrees
-    }
-
-    infix fun right(degrees: Double) {
         angle -= degrees
     }
 
@@ -135,14 +122,14 @@ fun snowFlake2() {
     }
 }
 
-fun tree(len: Int) {
+fun tree(len: Int, par: Int) {
     if (len > 5) {
         turtle forward len
-        turtle right 25
-        tree(len - 5)
-        turtle left 50
-        tree(len - 5)
-        turtle right 25
+        turtle right par
+        tree(len - 5, par)
+        turtle left par + par
+        tree(len - 5, par)
+        turtle right par
         turtle backward len
     }
 }
@@ -166,18 +153,18 @@ fun branch() {
 turtle init graph
 turtle setStroke sliderRed.absoluteValue / 25
 
-// pattern 1 (left)
+// Pattern #1 (left)
 turtle setColor counter1 * -500
 turtle moveTo Point(-200, -300)
 turtle lookAt counter1
 snowFlake1()
 
-// pattern 2 (right)
+// Pattern #2 (right)
 turtle setColor counter1 * 500
 turtle moveTo Point(200, -300)
 snowFlake2()
 
-// pattern (top)
+// Pattern #3 (top)
 turtle setColor counter1 * -2500
 turtle moveTo Point(0, 400)
 turtle lookAt counter1 * 3
@@ -186,13 +173,21 @@ repeat(8) {
     turtle left 45
 }
 
-// pattern 4 (tree)
+// Pattern #4 (tree)
 turtle setColor counter1 * -1500
 turtle moveTo Point(0, -150)
 turtle lookAt 90
-tree(25 + sliderGreen.absoluteValue / 8) // values greater than 90 may hang your IDE !
+tree(
+    25 + sliderGreen.absoluteValue / 8,
+    sliderBlue.absoluteValue / 4
+)
 
-"""Red slider is for stroke width,
-Green slider is for tree growth !"""
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
+"""$advert
+Red slider is for stroke width,
+Green and blue sliders are for tree growth and shape !"""
 
 // Have fun and amazing results ! 😀👌

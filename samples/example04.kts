@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #4. Sin/cos polar coordinates pattern 😍
 // Use sliders to parametrize script.
@@ -29,9 +35,13 @@ val graph = binds["graphics2d"] as Graphics2D
 val imageApple = binds["imageApple"] as Image
 val imageStar = binds["imageStar"] as Image
 
-// Helper extension function to draw centered image
+// Helper extension functions
 fun Graphics2D.drawImage(image: Image, x: Double, y: Double, size: Double) =
     drawImage(image, (x - size / 2).toInt(), (y - size / 2).toInt(), size.toInt(), size.toInt(), null)
+
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
 
 // Set random color
 graph.color = Color(Random.nextInt())
@@ -55,8 +65,13 @@ for (i in 0..360) {
     graph.drawImage(image, x, y, i / 5.0)
 }
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Move red and green sliders to change visual pattern"""
+"""$advert
+Red and green sliders to change visual pattern""".trimIndent()
 
 // Have fun and amazing results ! 😀👌

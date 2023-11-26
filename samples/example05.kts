@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #5. Sin/cos sprite pattern 😍
 // Use sliders to parametrize script.
@@ -36,21 +42,22 @@ val imageFlower = binds["imageFlower"] as Image
 val imageDiamond = binds["imageDiamond"] as Image
 val imageBall = binds["imageBall"] as Image
 
-// Helper extension function to draw centered image
+// Helper extension functions
 fun Graphics2D.drawImage(image: Image, x: Float, y: Float, size: Double) =
     drawImage(image, (x - size / 2).toInt(), (y - size / 2).toInt(), size.toInt(), size.toInt(), null)
+
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
 
 // Set random color
 graph.color = Color(Random.nextInt())
 
-// Draw rays
-for (x in -700..700 step 200)
-    for (y in -700..700 step 200)
-        graph.drawLine(x, y, mousePos.x, mousePos.y)
+val areaSize = 600
 
 // Draw sprites
-for (x in -700..700 step 100)
-    for (y in -700..700 step 100) {
+for (x in -areaSize..areaSize step 100)
+    for (y in -areaSize..areaSize step 100) {
         val image = when {
             x <= 0 && y < 0 -> imageDiamond
             x < 0 && y >= 0 -> imageApple
@@ -64,13 +71,18 @@ for (x in -700..700 step 100)
         val rx = sliderRed * sin(counter01 + x)
         val ry = sliderRed * cos(counter01 + y)
 
-        val size = sliderGreen + rx + ry + sqrt(dx * dx + dy * dy + 0.0) / 4
+        val size = sliderGreen + rx + ry + sqrt(dx * dx + dy * dy + 0.0) / 5
         graph.drawImage(image, x + rx, y + ry, size)
     }
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Move mouse and red slider to change animation pattern
+"""$advert
+Move mouse and red slider to change animation pattern
 Mouse position $mousePos"""
 
 // Have fun and amazing results ! 😀👌

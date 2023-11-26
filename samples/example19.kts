@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #19. Shoot 'em all mini-game prototype 😍
 // Click 'keyboard' button in the bottom-right corner
@@ -35,8 +41,12 @@ fun Point.moveTo(dest: Point, step: Double = 1.75) {
     val dx = dest.x - x * 1.0
     val dy = dest.y - y * 1.0
     val angle = atan2(dy, dx)
-    this.x += (step * cos(angle)).toInt()
-    this.y += (step * sin(angle)).toInt()
+    x += (step * cos(angle)).toInt()
+    y += (step * sin(angle)).toInt()
+}
+
+fun String.scrollLeft(counter: Int) = (counter % length).let {
+    drop(it) + ' ' + take(it)
 }
 
 // Simple game implementation
@@ -80,7 +90,6 @@ class Game {
 
         player.translate(dx, dy)
         if (viewMode) g2d.translate(-player.x, -player.y)
-
         g2d.drawImage(imageApple, player, size * 2)
     }
 
@@ -90,7 +99,12 @@ class Game {
         bullets.forEach {
             enemies.removeIf { enemy -> enemy.distance(it.first) < size / 2 }
             g2d.drawImage(imageFlower, it.first, size / 2)
-            it.first.translate(it.second.x * 3, it.second.y * 3) // bullet move
+
+            // Bullet move (with random increments)
+            it.first.translate(
+                it.second.x * 3 + (-2..2).random(),
+                it.second.y * 3 + (-2..2).random()
+            )
         }
 
         val delta = enemiesCount - enemies.size
@@ -119,9 +133,14 @@ val game = binds.getOrPut("game") {
 game.processPlayer(graph)
 game.processEnemiesAndBullets(graph)
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Arrow keys to move, Space to fire.
+"""$advert
+Arrow keys to move, Space to fire.
 Player ${game.player}
 Score: ${game.score}"""
 

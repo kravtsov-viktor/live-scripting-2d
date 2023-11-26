@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #6. Snake-trail pattern 😍
 // Use sliders to parametrize script.
@@ -32,9 +38,13 @@ val imageDiamond = binds["imageDiamond"] as Image
 val imageBall = binds["imageBall"] as Image
 val imageSmile = binds["imageSmile"] as Image
 
-// Helper extension function to draw centered image
+// Helper extension functions
 fun Graphics2D.drawImage(image: Image, x: Int, y: Int, size: Int) =
     drawImage(image, x - size / 2, y - size / 2, size, size, null)
+
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
 
 // Init and get items from the bindings map (script state)
 val points = binds.getOrPut("points") {
@@ -58,9 +68,14 @@ points.forEachIndexed { index, point ->
 points.removeAt(0)
 points.add(Point(mousePos))
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Move mouse to change pattern ! 
+"""$advert
+Move mouse to change pattern ! 
 Red slider to change sprite size.
 Mouse position $mousePos"""
 

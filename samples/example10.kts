@@ -1,10 +1,16 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #10. Parallax stars pattern 💕
-// Use sliders to parametrize script.
-// Move mouse to animate.
+// Red slider to change sprites size.
+// Move mouse to change direction.
 // Pan and zoom graphical area using mouse.
 
 import java.awt.*
@@ -31,28 +37,29 @@ val counter1 = binds["counter1"] as Int
 val imageStar = binds["imageStar"] as Image
 val imageDiamond = binds["imageDiamond"] as Image
 
-// Helper extension function to draw centered image
+// Helper extension functions
 fun Graphics2D.drawImage(image: Image, point: Point, size: Int) =
     drawImage(image, point.x - size / 2, point.y - size / 2, size, size, null)
 
-val wdt = 700
-val hgt = 700
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
+
+val side = 500
+val range = -side..side
 
 // Simple item implementation
 class Item(val image: Image) {
-    val point = Point(
-        (-wdt..wdt).random(),
-        (-hgt..hgt).random()
-    )
+    val point = Point(range.random(), range.random())
 
-    val size = (0..100).random()
+    val size = (0..70).random()
 
     fun update() {
         val k = 150 - size
         point.translate(mousePos.x / k, mousePos.y / k)
 
-        if (point.x > wdt || point.x < -wdt) point.x = -point.x
-        if (point.y > hgt || point.y < -hgt) point.y = -point.y
+        if (point.x !in range) point.x *= -1
+        if (point.y !in range) point.y *= -1
     }
 
     override fun toString() = "$point" // value to check in watches window
@@ -60,7 +67,7 @@ class Item(val image: Image) {
 
 // Init and get items from the bindings map (script state)
 val items = binds.getOrPut("items") {
-    List(75) { Item(imageStar) } + List(75) { Item(imageDiamond) }
+    List(40) { Item(imageStar) } + List(40) { Item(imageDiamond) }
 } as List<Item>
 
 items.forEach {
@@ -68,9 +75,14 @@ items.forEach {
     it.update()
 }
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Red slider is for sprites size.
+"""$advert
+Red slider is for sprites size.
 Move mouse to change sprites movement direction.
 Mouse position $mousePos"""
 

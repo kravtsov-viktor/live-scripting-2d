@@ -1,10 +1,15 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #16. 2D hypnotizing interference pattern 😍
-// Just lines and circles dynamic pattern.
-// Different color for each pattern.
+// Just colored lines and circles dynamic pattern.
 // Use red slider to parametrize script.
 // Move mouse to animate.
 
@@ -30,6 +35,11 @@ val mousePos = binds["mousePos"] as Point
 // All subsequent drawings will be done via Graphics2D instance
 val graph = binds["graphics2d"] as Graphics2D
 
+// Helper extension function
+fun String.scrollLeft(counter: Int) = (counter % length).let {
+    drop(it) + ' ' + take(it)
+}
+
 fun drawPattern(dx: Int, dy: Int, color: Color) {
     graph.color = color
 
@@ -37,7 +47,7 @@ fun drawPattern(dx: Int, dy: Int, color: Color) {
     var rx = 0
     var ry = 0
     var i = 0.0
-    while (i < 90) {
+    while (i < 50) {
         val x = (r * cos(counter01 + i)).toInt()
         val y = (r * sin(counter01 + i)).toInt()
         graph.stroke = BasicStroke(r++ / 20)
@@ -58,9 +68,14 @@ drawPattern(0, delta, YELLOW)
 drawPattern(0, -delta, MAGENTA)
 drawPattern(mousePos.x, mousePos.y, CYAN)
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Red slider is for stroke width.
+"""$advert
+Red slider is for stroke width.
 Move mouse to change visual pattern.
 Mouse position $mousePos"""
 

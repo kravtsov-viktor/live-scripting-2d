@@ -1,10 +1,16 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #11. Parallax texts pattern 😍
-// Use sliders to parametrize script.
-// Move mouse to animate.
+// Red slider to change font size.
+// Move mouse to change direction.
 // Pan and zoom graphical area using mouse.
 
 import java.awt.*
@@ -29,16 +35,18 @@ val mousePos = binds["mousePos"] as Point
 // Get autoincrement counter for animation purposes
 val counter1 = binds["counter1"] as Int
 
-val wdt = 500
-val hgt = 500
+// Helper extension function
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
+
+val side = 500
+val range = -side..side
 val names = listOf("Viktor 👋", "Tigran 😎", "Sophia 😍", "Marina ❤️", "Hello 👍")
 
 // Simple item implementation
 class Item(val title: String) {
-    val point = Point(
-        (-wdt..wdt).random(),
-        (-hgt..hgt).random()
-    )
+    val point = Point(range.random(), range.random())
 
     val size = 10 * (1..5).random()
     val color = Color(Random.nextInt())
@@ -48,8 +56,8 @@ class Item(val title: String) {
     fun update() {
         point.translate(mousePos.x / size / 3, mousePos.y / size / 3)
 
-        if (point.x > wdt || point.x < -wdt) point.x = -point.x
-        if (point.y > hgt || point.y < -hgt) point.y = -point.y
+        if (point.x !in range) point.x *= -1
+        if (point.y !in range) point.y *= -1
     }
 }
 
@@ -65,9 +73,14 @@ items.forEach {
     it.update()
 }
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Move mouse over graphics area to change titles movement direction
+"""$advert
+Move mouse over graphics area to change titles movement direction
 Mouse position $mousePos"""
 
 // Have fun and amazing results ! 😀👌

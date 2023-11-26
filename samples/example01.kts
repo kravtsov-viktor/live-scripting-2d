@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #1. Lissajous curve 💖
 // Classical Lissajous pattern using lines or sprites.
@@ -31,12 +37,17 @@ val graph = binds["graphics2d"] as Graphics2D
 // Get plugin`s built-in Image instances of predefined sprites
 val imageDiamond = binds["imageDiamond"] as Image
 
-// Helper extension function to draw centered image
+// Helper extension functions
+
 fun Graphics2D.drawImage(image: Image, x: Float, y: Float, size: Float) =
     drawImage(image, (x - size / 2).toInt(), (y - size / 2).toInt(), size.toInt(), size.toInt(), null)
 
-fun drawPolyline(kx: Int, ky: Int, size: Int) {
-    graph.stroke = BasicStroke(sliderYellow.absoluteValue / 20f)
+fun String.scrollLeft(counter: Int) = (counter % length).let {
+    drop(it) + ' ' + take(it)
+}
+
+fun drawPolyline(kx: Int, ky: Int, stroke: Int, size: Int) {
+    graph.stroke = BasicStroke(stroke.absoluteValue / 30f)
     graph.color = Color(counter1 * 1000)
 
     val len = 3000
@@ -44,10 +55,10 @@ fun drawPolyline(kx: Int, ky: Int, size: Int) {
     val yArr = IntArray(len)
 
     var k = 0f
-    for (i in 0..len - 1) {
-        val radius = size + size / 2 * sin(counter001 / 2)
-        val x = radius * cos(k * kx / 1000 + counter001 * 2)
-        val y = radius * sin(k * ky / 1000 + counter001)
+    for (i in 0 until len) {
+        val radius = size + size / 2 * sin(counter001 * 3)
+        val x = radius * cos(k * kx / 500 + counter001)
+        val y = radius * sin(k * ky / 500 + counter001)
 
         xArr[i] = x.toInt()
         yArr[i] = y.toInt()
@@ -58,25 +69,30 @@ fun drawPolyline(kx: Int, ky: Int, size: Int) {
 }
 
 fun drawSprites(kx: Int, ky: Int, size: Int) {
-    var i = -4f
-    while (i <= 4) {
+    var i = -6f
+    while (i <= 6) {
         val radi = size + size / 2 * sin(counter01 / 2)
-        val x = 2 * radi * cos(i * kx / 10 + counter001)
-        val y = 2 * radi * sin(i * ky / 10 + counter001)
+        val x = 2 * radi * cos(i * kx / 150 + counter001)
+        val y = 2 * radi * sin(i * ky / 150 + counter001)
 
         graph.drawImage(imageDiamond, x, y, radi)
-        i += 0.025f
+        i += 0.125f
     }
 }
 
 if (sliderBlue > 0)
     drawSprites(sliderRed, sliderGreen, sliderBlue)
 else
-    drawPolyline(sliderRed, sliderGreen, -sliderBlue)
+    drawPolyline(sliderRed, sliderGreen, sliderYellow, -sliderBlue)
+
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
 
 // Colored title message
 graph.color = Color(counter1 * -1000)
-"""Move sliders to change pattern
-Blue slider to change pattern size and mode (line vs sprites)"""
+"""$advert
+Move red and green sliders to change pattern
+Blue slider to change size and mode (line vs sprites)"""
 
 // Have fun and amazing results ! 😀👌

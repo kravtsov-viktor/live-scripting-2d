@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #9. Sin/cos mania: wave patterns everywhere !😍
 // Use sliders to parametrize script.
@@ -35,21 +41,25 @@ val helloString2 = "A QUICK BROWN FOX JUMPS OVER THE LAZY DOG"
 val xArr = IntArray(360 * 2 + 1) { it - 360 }
 val yArr = IntArray(360 * 2 + 1)
 
-// Helper extension function to draw centered image
+// Helper extension functions
 fun Graphics2D.drawImage(image: Image, x: Int, y: Int, size: Int) =
     drawImage(image, x - size / 2, y - size / 2, size, size, null)
 
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
+
 fun sineText(str: String, delta: Int, k: Int) {
-    for (i in 0..str.length - 1) {
+    for (i in str.indices) {
         val c = str[i].toString()
         val x = sliderRed * (i - str.length / 2) / 5
         val y = (sliderBlue * sin(k * i + counter01)).toInt()
 
         graph.drawString(c, x, delta + y + y)
-        graph.drawImage(imageSmile, x, delta + y, 32)
+        graph.drawImage(imageSmile, x, delta + y, 50)
 
         graph.drawString(c, x, delta - y - y)
-        graph.drawImage(imageApple, x, delta - y, 32)
+        graph.drawImage(imageApple, x, delta - y, 50)
     }
 }
 
@@ -64,11 +74,9 @@ fun sineCurve(coeff: Float, delta: Int) {
 }
 
 sineText(helloString1, 300, 600)
-sineText(helloString1, 150, 1200)
-sineText(helloString1, 100, 1800)
+sineText(helloString1, 100, 1200)
 sineText(helloString2, -300, 600)
-sineText(helloString2, -150, 1200)
-sineText(helloString2, -100, 1800)
+sineText(helloString2, -100, 1200)
 
 sineCurve(0.5f, -500)
 sineCurve(1f, -300)
@@ -77,8 +85,13 @@ sineCurve(3f, 0)
 sineCurve(4f, 150)
 sineCurve(5f, 300)
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"Use sliders to modify sin/cos patterns"
+"""$advert
+Use sliders to modify sin/cos patterns"""
 
 // Have fun and amazing results ! 😀👌

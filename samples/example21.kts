@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #21. Space invaders mini-game prototype 😍
 // Click 'keyboard' button in the bottom-right corner
@@ -25,18 +31,22 @@ val imageApple = binds["imageApple"] as Image
 val imageBall = binds["imageBall"] as Image
 val imageSmile = binds["imageSmile"] as Image
 
-// Helper extension function to draw centered image
+// Helper extension functions
 fun Graphics2D.drawImage(image: Image, point: Point, size: Int) =
     drawImage(image, point.x - size / 2, point.y - size / 2, size, size, null)
+
+fun String.scrollLeft(counter: Int) = (counter % length).let {
+    drop(it) + ' ' + take(it)
+}
 
 // Simple game implementation
 class Game {
     val imgSize = 50
-    val areaSize = 450
+    val areaSize = 400
     var score = 0
-    val player = Point(0, areaSize - imgSize * 2)
+    val player = Point(0, areaSize - imgSize * 3)
     val bullets = mutableListOf<Point>()
-    var enemies = createEnemies(35)
+    var enemies = createEnemies(30)
 
     // Values to check in watches window
     override fun toString() = "\n1️⃣player: $player\n2️⃣enemies: $enemies\n3️⃣bullets: $bullets"
@@ -62,8 +72,8 @@ class Game {
         bullets.forEach {
             g2d.drawImage(imageBall, it, imgSize / 2)
 
-            // bullet move
-            it.x += (-2..2).random()
+            // Bullet move (with random increment)
+            it.x += (-5..5).random()
             it.y -= 10
         }
 
@@ -102,9 +112,14 @@ game.processEnemies(graph)
 game.processBullets(graph)
 game.processPlayer(graph)
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Arrow keys to move, Space to fire.
+"""$advert
+Arrow keys to move, Space to fire.
 Player ${game.player}
 Score: ${game.score}"""
 

@@ -1,6 +1,12 @@
-// Привет мир ! 👋 Hello world ! 👍
-// Kravtsov Viktor Viktorovich 👌 Кравцов Виктор Викторович 😍
-// Taganrog ❤️ Таганрог 2023-3023
+// Live Scripting 2D plugin 🎉
+// for Intellij IDEA and Android Studio 💻
+
+// Kravtsov Viktor Viktorovich 😍
+// Taganrog 2023 💖
+
+// Contact me for your feedback, ideas and donations !
+// e-mail: kravtsov.viktor@gmail.com ✍️
+// telegram: t.me/eye3kravtsov ✍️
 
 // Sample #3. Space flight stars 😃 Working with state.
 // Move mouse to change emitter center.
@@ -33,9 +39,13 @@ val imageStar = binds["imageStar"] as Image
 val wdt = 300f
 val hgt = 300f
 
-// Helper extension function to draw centered image
+// Helper extension functions
 fun Graphics2D.drawImage(image: Image, x: Int, y: Int, size: Int) =
     drawImage(image, x - size / 2, y - size / 2, size, size, null)
+
+fun String.scrollLeft(count: Int) = (count % length).let {
+    drop(it) + ' ' + take(it)
+}
 
 // Simple item implementation
 class Item {
@@ -87,9 +97,14 @@ items.forEach {
     it.update(sliderRed / 25)
 }
 
+// Advertisement
+val advert = "I love Live Scripting 2D ! 💖".scrollLeft(counter1 / 3)
+binds["advert"] = advert
+
 // Colored title message
 graph.color = Color(counter1 * -500)
-"""Move mouse to change center point
+"""$advert
+Move mouse to change center point
 Red slider is for stars speed
 Mouse position $mousePos"""
 
