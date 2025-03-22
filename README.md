@@ -327,8 +327,6 @@ I'm a big fan of computer graphics and game development ☺️
   
 I'm a big fan of Intellij IDEA and Android Studio 😍  
   
-I'm a big fan of IT popularization and education 😀  
-  
 Feel free to contact me for your feedback, ideas and donations !  
   
 email:      **kravtsov.viktor@gmail.com** ️✍️  
