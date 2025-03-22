@@ -1,8 +1,6 @@
 🎉 Hello and welcome to **Live Scripting 2D**  
 plugin for Intellij IDEA and Android Studio !  
-
-Visit JetBrains Marketplace [Live Scripting 2D](https://plugins.jetbrains.com/plugin/23271-live-scripting-2d)
-  
+ 
 💥 Turn your favorite IDE into simple realtime interactive Kotlin 2D graphics coding toy !  
   
 😎 It is about interactive and simple Kotlin programming of 2D graphics, animations and mini-games.  
