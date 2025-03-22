@@ -1,5 +1,4 @@
-🎉 Hello and welcome to **Live Scripting 2D**  
-plugin for Intellij IDEA and Android Studio !  
+🎉 Hello and welcome to **Live Scripting 2D** plugin for Intellij IDEA and Android Studio !  
  
 💥 Turn your favorite IDE into simple realtime interactive Kotlin 2D graphics coding toy !  
   
