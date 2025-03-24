@@ -205,57 +205,57 @@ Basic code snippet to get all important values every script **should** do:
     // Bindings variable stores script context map (script state)
     // Below are some key variables every script should get to work properly
 
-    **val binds = bindings as javax.script.Bindings**
+    val binds = bindings as javax.script.Bindings
 
     // Get autoincrement counters for animation purposes
     // Counter steps are: 1, 0.1 and 0.01
 
-    **val counter1 = binds\["counter1"\] as Int
+    val counter1 = binds\["counter1"\] as Int
     val counter01 = binds\["counter01"\] as Float
-    val counter001 = binds\["counter001"\] as Float**
+    val counter001 = binds\["counter001"\] as Float
 
     // Get slider values from the bindings map
     // Slider values are dynamically changed parameters
     // for your scripts for different animation purposes
 
-    **val sliderRed = binds\["sliderRed"\] as Int
+    val sliderRed = binds\["sliderRed"\] as Int
     val sliderGreen = binds\["sliderGreen"\] as Int
     val sliderBlue = binds\["sliderBlue"\] as Int
-    val sliderYellow = binds\["sliderYellow"\] as Int**
+    val sliderYellow = binds\["sliderYellow"\] as Int
 
     // Get mouse position from the bindings map
 
-    **val mousePos = binds\["mousePos"\] as Point**
+    val mousePos = binds\["mousePos"\] as Point
 
     // Get Graphics2D instance from the bindings map
     // All subsequent drawings will be done via Graphics2D instance
     // Graphics2D is a key thing for any drawings your script do
 
-    **val graph = binds\["graphics2d"\] as Graphics2D**
+    val graph = binds\["graphics2d"\] as Graphics2D
 
     // Get Image instances of sprites from the bindings map
     // There are 7 default built-in images available
 
-    **val imgApple = binds\["imageApple"\] as Image
+    val imgApple = binds\["imageApple"\] as Image
     val imgStar = binds\["imageStar"\] as Image
     val imgFlower = binds\["imageFlower"\] as Image
     val imgDiamond = binds\["imageDiamond"\] as Image
     val imgBall = binds\["imageBall"\] as Image
     val imgSmile = binds\["imageSmile"\] as Image
-    val imgWall = binds\["imageWall"\] as Image**
+    val imgWall = binds\["imageWall"\] as Image
 
     // Get keyboard events from the bindings map
     // Use "keyXXX" as binding key name to get key press boolean status value,
     // where XXX is Q, W, ..., 1, 2, ..., Space, Enter, PageUp, etc.
 
-    **val keyQ = binds\["keyQ"\] as Boolean
+    val keyQ = binds\["keyQ"\] as Boolean
     val keyW = binds\["keyW"\] as Boolean
     val key1 = binds\["key1"\] as Boolean
     val key2 = binds\["key2"\] as Boolean
     val keySpace = binds\["keySpace"\] as Boolean
     val keyEnter = binds\["keyEnter"\] as Boolean
     val keyUp = binds\["keyUp"\] as Boolean
-    val keyDown = binds\["keyDown"\] as Boolean**
+    val keyDown = binds\["keyDown"\] as Boolean
 
 👍 You can watch bindings in realtime using plugin's watches panel.
 
@@ -273,14 +273,14 @@ Here are two examples of working with state:
     // Bindings variable stores script context map (script state)
     // Explicitly define typed variable for bindings:
 
-    **val binds = bindings as javax.script.Bindings**
+    val binds = bindings as javax.script.Bindings
 
     // Init and get Point instance from the bindings map
     // If "point" key exists in the map, Point instance will be returned
     // If there is no "point" key in the map, Point instance
     // will be created (in the lambda) and returned as well
 
-    **val point = binds.getOrPut("point") {
+    val point = binds.getOrPut("point") {
         Point()
     } as Point**
 
@@ -292,16 +292,16 @@ Here are two examples of working with state:
     // Bindings variable stores script context map (script state)
     // Explicitly define typed variable for bindings:
 
-    **val binds = bindings as javax.script.Bindings**
+    val binds = bindings as javax.script.Bindings
 
     // Init and get list of Point instances from the bindings map
     // If "points" key exists in the map, list of Point instances will be returned
     // If there is no "points" key in the map, list of Point instances
     // will be created (in the lambda) and returned as well
 
-    **val points = binds.getOrPut("points") {
+    val points = binds.getOrPut("points") {
         MutableList(size = 35) { Point() }
-    } as MutableList<Point>**
+    } as MutableList<Point>
 
     // ...your code to modify list of points...
 
