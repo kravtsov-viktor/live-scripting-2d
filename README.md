@@ -197,7 +197,7 @@ Use mouse to animate.
 To work with bindings more comfortable way use the following sentence to **explicitly define typed variable** for bindings:  
   
 
-    **val binds = bindings as javax.script.Bindings**
+    val binds = bindings as javax.script.Bindings
 
 Basic code snippet to get all important values every script **should** do:  
   
