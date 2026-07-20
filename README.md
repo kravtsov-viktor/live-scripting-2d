@@ -21,7 +21,7 @@ _(click link to create new simple script to get started quickly)_
 
   
 
-**There are 25 example scripts to get inspired and quickly start your own experiments ! 😍😍**  
+**There are 50+ example scripts to get inspired and quickly start your own experiments ! 😍😍**  
 _(click links below to check it out !)_  
   
 [Sample #1. Lissajous curve 💖](file://example01.kts)  
